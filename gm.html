@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>पेपर बैंक | कागजात व्यवस्थापन र डिजिटलाइजेसन समाधान</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Mukta:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLMD5t4pUf6/fV8c8EwI/U3pL3X7g4a5r+B6S0x3RzF5yM/F2B9M4t1x5Ww2p3R1pQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        /* --- Base Styles & Reset --- */
+        :root {
+            --color-primary: #007AFF; 
+            --color-secondary: #34C759; 
+            --color-text-dark: #333333;
+            --color-text-light: #666666;
+            --color-background-light: #F9F9F9;
+            --color-white: #FFFFFF;
+            --box-shadow-subtle: 0 4px 12px rgba(0, 0, 0, 0.08);
+            /* Added Mukta font for better Nepali display, Inter for general UI */
+            --font-family-sans: 'Mukta', 'Inter', system-ui, sans-serif; 
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family-sans);
+            line-height: 1.6;
+            color: var(--color-text-dark);
+            background-color: var(--color-white);
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* --- Typography --- */
+        h1, h2, h3 {
+            font-weight: 700;
+            margin-bottom: 0.5em;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            color: var(--color-primary);
+        }
+
+        h2 {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        p {
+            margin-bottom: 1em;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--color-text-light);
+            margin-bottom: 2rem;
+        }
+
+        /* --- Buttons (CTAs) --- */
+        .cta-button {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .primary-cta {
+            background-color: var(--color-primary);
+            color: var(--color-white);
+        }
+
+        .primary-cta:hover {
+            background-color: #0056b3;
+        }
+
+        .secondary-cta {
+            background-color: var(--color-background-light);
+            color: var(--color-primary);
+            border: 2px solid var(--color-primary);
+        }
+
+        .secondary-cta:hover {
+            background-color: var(--color-primary);
+            color: var(--color-white);
+        }
+
+        /* --- Header & Navigation --- */
+        .header {
+            background-color: var(--color-white);
+            box-shadow: 0 1px 10px rgba(0, 0, 0, 0.05);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            text-decoration: none;
+        }
+
+        .nav-menu a {
+            color: var(--color-text-dark);
+            text-decoration: none;
+            margin-left: 20px;
+            padding: 5px 0;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .nav-menu a:hover:not(.cta-button) {
+            color: var(--color-primary);
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--color-primary);
+        }
+
+        /* --- Hero Section --- */
+        .hero-section {
+            padding: 6rem 0;
+            text-align: center;
+            background-color: var(--color-background-light);
+        }
+
+        .hero-cta {
+            margin-top: 1.5rem;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+        }
+
+        /* --- General Section Styles --- */
+        .section {
+            padding: 4rem 0;
+        }
+
+        .light-bg {
+            background-color: var(--color-background-light);
+        }
+
+        /* --- Intro / About Section --- */
+        .intro-text {
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+        .intro-text h3 {
+            color: var(--color-primary);
+            margin-top: 2rem;
+        }
+
+        /* --- Service/Feature Details --- */
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .feature-item i {
+            font-size: 2rem;
+            color: var(--color-secondary);
+            margin-right: 20px;
+            margin-top: 5px;
+            min-width: 40px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
+            margin-top: 3rem;
+        }
+
+        /* --- Pricing Section --- */
+        .price-toggle-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            padding: 5px;
+            background-color: var(--color-white);
+            border-radius: 8px;
+            box-shadow: var(--box-shadow-subtle);
+            max-width: 450px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .price-toggle {
+            flex: 1;
+            padding: 10px 20px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            border-radius: 6px;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .price-toggle.active {
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .pricing-cards-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            overflow: hidden; 
+            min-height: 450px;
+        }
+
+        .price-card {
+            background: var(--color-white);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: var(--box-shadow-subtle);
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+            transition: all 0.4s ease-in-out;
+            border: 1px solid transparent;
+        }
+
+        .price-card.active-model {
+            border-color: var(--color-primary);
+            box-shadow: 0 8px 25px rgba(0, 122, 255, 0.2);
+        }
+
+        .price-card.hidden-model {
+            opacity: 0;
+            height: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+            margin-top: 0;
+            margin-bottom: 0;
+            pointer-events: none;
+        }
+
+        .price-detail {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-top: 10px;
+        }
+
+        .duration {
+            color: var(--color-text-light);
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .price-card ul {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 25px;
+        }
+
+        .price-card ul li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            color: var(--color-text-dark);
+        }
+
+        .price-card ul li i {
+            color: var(--color-secondary);
+            margin-right: 10px;
+        }
+
+        /* --- Contact Form --- */
+        .contact-details {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+        .contact-details a {
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .contact-form input, .contact-form textarea {
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: var(--font-family-sans);
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-message {
+            text-align: center;
+            font-weight: 600;
+            color: var(--color-primary);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        /* --- Footer --- */
+        .footer {
+            background-color: var(--color-text-dark);
+            color: var(--color-background-light);
+            text-align: center;
+            padding: 1.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        /* --- MOBILE & TABLET RESPONSIVENESS (Mobile-First) --- */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.4rem; }
+            h2 { font-size: 1.8rem; }
+
+            .nav-menu { display: none; flex-direction: column; width: 100%; position: absolute; top: 60px; left: 0; background-color: var(--color-white); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); padding: 20px 0; }
+            .nav-menu.active { display: flex; }
+            .nav-menu a { margin: 10px 20px; text-align: center; width: auto; }
+            .menu-toggle { display: block; }
+            .nav-menu .cta-button { margin-top: 10px; display: inline-block; }
+
+            .hero-section { padding: 4rem 0; }
+            .feature-grid { grid-template-columns: 1fr; }
+            .pricing-cards-container { flex-direction: column; }
+            .price-toggle-container { flex-direction: column; }
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 2rem; }
+            .feature-item { flex-direction: column; text-align: center; }
+            .feature-item i { margin-right: 0; margin-bottom: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container nav-content">
+            <a href="#hero" class="logo">Paper Bank</a>
+            <nav class="nav-menu">
+                <a href="#about">हाम्रो बारेमा</a>
+                <a href="#dms-features">DMS सुविधाहरू</a>
+                <a href="#digitalization">डिजिटलाइजेसन</a>
+                <a href="#pricing">मूल्य निर्धारण</a>
+                <a href="#contact" class="cta-button primary-cta">सम्पर्क गर्नुहोस्</a>
+            </nav>
+            <div class="menu-toggle" aria-label="Toggle navigation">&#9776;</div>
+        </div>
+    </header>
+
+    <section id="hero" class="hero-section">
+        <div class="container">
+            <h1>पेपर बैंक: कागजात व्यवस्थापनमा क्रान्ति।</h1>
+            <p class="subtitle">नेपाली व्यवसायहरूका लागि विशेष रूपले डिजाइन गरिएको: सुरक्षित कागजात व्यवस्थापन र व्यावसायिक डिजिटलाइजेसन समाधानहरू।</p>
+            <a href="#dms-features" class="cta-button primary-cta">DMS सुविधाहरू हेर्नुहोस्</a>
+            <a href="#digitalization" class="cta-button secondary-cta">डिजिटलाइजेसन सुरु गर्नुहोस्</a>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <div class="container intro-text">
+            <h2>हामी को हौं र तपाईंलाई कसरी मद्दत गर्छौं?</h2>
+            <p>**पेपर बैंक** तपाईंको परम्परागत, कागजमा आधारित कार्यप्रवाहलाई व्यवस्थित, पूर्ण डिजिटल कार्यस्थलमा रूपान्तरण गर्ने **विश्वसनीय साझेदार** हो। हामी बलियो **कागजात व्यवस्थापन सफ्टवेयर (DMS)** र विशेष **डिजिटलाइजेसन सेवाहरू** प्रदान गर्छौं।</p>
+            
+            <h3>पेपर बैंक किन छान्नुहोस्?</h3>
+            <p>हामी हराएका कागजातहरू, ढिलो जानकारी खोजी, र कानुनी अनुपालन जोखिमहरू जस्ता समस्याहरू हटाउँछौं। हाम्रा समाधानहरूले सुनिश्चित गर्दछ कि तपाईंको टोलीले डेटा खोज्नमा कम समय र मुख्य व्यापार गतिविधिहरूमा बढी समय खर्च गर्छ।</p>
+        </div>
+    </section>
+
+    <section id="dms-features" class="section light-bg">
+        <div class="container">
+            <h2>Paper Bank DMS ले तपाईंको काममा कसरी सुधार ल्याउँछ?</h2>
+            <p class="intro-text">नेपाली व्यवसायहरूको लागि उत्तम: उत्पादकत्व बढाउनुहोस्, डेटा सुरक्षा सुनिश्चित गर्नुहोस्, र कानुनी अनुपालन पूरा गर्नुहोस्।</p>
+
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <i class="fas fa-search"></i>
+                    <div>
+                        <h3>तत्काल कागजात खोज</h3>
+                        <p>कुनै पनि कागजात सेकेन्ड भित्र खोज्नुहोस्। **OCR (अप्टिकल क्यारेक्टर रिकग्निसन)** सुविधाका कारण शब्द, मिति वा ट्याग प्रयोग गरेर स्क्यान गरिएका फाइलहरूमा पनि खोजी गर्न सकिन्छ।</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-user-shield"></i>
+                    <div>
+                        <h3>उच्च सुरक्षा र स्थानीय अनुपालन</h3>
+                        <p>**भूमिकामा आधारित पहुँच नियन्त्रण (Role-based access control)** र एन्क्रिप्शनको साथ संवेदनशील जानकारी सुरक्षित गर्नुहोस्। नेपालका नियामक आवश्यकताहरू र अडिट ट्रेलहरूको लागि तयार हुनुहोस्।</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-code-branch"></i>
+                    <div>
+                        <h3>संस्करण नियन्त्रण र सहकार्य</h3>
+                        <p>प्रत्येक सम्पादनको इतिहास ट्र्याक गर्नुहोस्। गल्तीले फाइल मेट्ने वा परिवर्तन हुने चिन्ता छैन। टोलीले सुरक्षित रूपमा नवीनतम संस्करणमा काम गर्न सक्छ।</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-cogs"></i>
+                    <div>
+                        <h3>स्वचालित कार्यप्रवाह</h3>
+                        <p>अनुमोदन (approvals) र रूटिंग जस्ता प्रक्रियाहरू स्वचालित गर्नुहोस्। कागजातहरू समयमै सही व्यक्तिसम्म पुग्ने सुनिश्चित गर्नुहोस्, जसले गर्दा ढिलाइ कम हुन्छ र कार्यकुशलता बढ्छ।</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="digitalization" class="section">
+        <div class="container">
+            <h2>पूर्ण-स्तरीय कागजात डिजिटलाइजेसन सेवाहरू</h2>
+            <p class="intro-text">तपाईंको कार्यालयमा थुप्रिएका कागजपत्रहरूलाई उच्च-गुणस्तरको डिजिटल सम्पत्तिमा रूपान्तरण गर्न हाम्रो व्यावसायिक सेवा प्रयोग गर्नुहोस्।</p>
+            
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <i class="fas fa-box-archive"></i>
+                    <div>
+                        <h3>सुरक्षित संकलन र प्रशोधन</h3>
+                        <p>हामी तपाईंको भौतिक कागजातहरू सुरक्षित तरिकाले संकलन गर्छौं र प्रमाणित स्क्यानिङ सुविधामा ल्याएर डिजिटलाइज गर्छौं।</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-camera"></i>
+                    <div>
+                        <h3>उच्च-गुणस्तरको स्क्यानिङ (OCR सहित)</h3>
+                        <p>हामी उच्च-गतिको स्क्यानरहरू प्रयोग गर्छौं जसले **OCR** लागू गरी तपाईंको सबै पाठलाई DMS भित्र पूर्ण रूपमा खोजयोग्य बनाउँछ।</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-upload"></i>
+                    <div>
+                        <h3>अनुक्रमणिका र सहज आयात</h3>
+                        <p>तपाईंको व्यापार नियम अनुसार फाइलहरूलाई नामकरण, ट्यागिङ, र व्यवस्थित गरेर Paper Bank DMS मा सिधै लोड गरिन्छ।</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-trash-can"></i>
+                    <div>
+                        <h3>प्रमाणित कागजपत्र नष्टीकरण</h3>
+                        <p>एक पटक कागजातहरू डिजिटलाइज र प्रमाणित भएपछि, हामी तपाईंको अनुरोधमा मूल कागजपत्रहरूको सुरक्षित र प्रमाणित नष्टीकरणको व्यवस्था गर्न सक्छौं।</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="section pricing-section light-bg">
+        <div class="container">
+            <h2>सरल, पारदर्शी मूल्य निर्धारण (नेपाली रुपैयाँमा)</h2>
+            
+            <div class="price-toggle-container">
+                <button id="toggle-license" class="price-toggle active">एक पटकको लाइसेन्स / AMC</button>
+                <button id="toggle-subscription" class="price-toggle">मासिक सदस्यता सेवा</button>
+            </div>
+
+            <div class="pricing-cards-container">
+                
+                <div class="price-card license-model active-model">
+                    <h3>Enterprise स्वामित्व मोडेल</h3>
+                    <p class="price-detail">NPR X,XXX,XXX</p>
+                    <p class="duration">एक पटकको सफ्टवेयर शुल्क</p>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> **सफ्टवेयरको स्थायी स्वामित्व**</li>
+                        <li><i class="fas fa-check-circle"></i> अन-प्रमाइस (On-Premise) स्थापना सुविधा</li>
+                        <li><i class="fas fa-check-circle"></i> नवीकरणीय **AMC (वार्षिक मर्मतसम्भार)** समर्थन</li>
+                        <li><i class="fas fa-check-circle"></i> स्थानीय सर्भरमा डाटा नियन्त्रण</li>
+                    </ul>
+                    <a href="#contact" class="cta-button secondary-cta">लाइसेन्सको लागि कोटेशन माग्नुहोस्</a>
+                </div>
+
+                <div class="price-card subscription-model hidden-model">
+                    <h3>क्लाउड सदस्यता मोडेल</h3>
+                    <p class="price-detail">NPR 1,500/प्रयोगकर्ता/मासिक</p>
+                    <p class="duration">मासिक बिलिङ (Pay-As-You-Go)</p>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Paper Bank द्वारा होस्ट गरिएको **क्लाउड सेवा**</li>
+                        <li><i class="fas fa-check-circle"></i> सबै सफ्टवेयर अद्यावधिकहरू निःशुल्क</li>
+                        <li><i class="fas fa-check-circle"></i> सुरुमा ठूलो लगानी आवश्यक छैन</li>
+                        <li><i class="fas fa-check-circle"></i> साना र बढ्दै गरेका व्यवसायहरूका लागि उत्तम</li>
+                    </ul>
+                    <a href="#contact" class="cta-button secondary-cta">१४ दिनको निःशुल्क परीक्षण सुरु गर्नुहोस्</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <div class="container">
+            <h2>पेपर बैंक सँग जोडिनुहोस्</h2>
+            <p class="contact-details">आफ्नो कागजात कार्यप्रवाह परिवर्तन गर्न तयार हुनुहुन्छ? डेमो वा कोटेशनका लागि आजै सम्पर्क गर्नुहोस्।</p>
+            <p class="contact-details">
+                सिधै कल गर्नुहोस्: <a href="tel:+9779802300007">**9802300007**</a><br>
+                वा तल आफ्नो सोधपुछ फारम भर्नुहोस्:
+            </p>
+
+            <form id="contact-form" class="contact-form">
+                <input type="text" name="name" placeholder="तपाईंको पूरा नाम" required>
+                <input type="text" name="company" placeholder="कम्पनीको नाम" required>
+                <input type="email" name="email" placeholder="कार्यालयको इमेल" required>
+                <textarea name="message" placeholder="म (DMS / डिजिटलाइजेसन / दुवै) मा रुचि राख्छु र मेरो मुख्य उद्देश्य..." required></textarea>
+                <button type="submit" class="cta-button primary-cta">सोधपुछ पठाउनुहोस्</button>
+                <p id="form-message" class="form-message"></p>
+            </form>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; <span id="current-year"></span> पेपर बैंक (Paper Bank). सबै अधिकार सुरक्षित। | सम्पर्क: <a href="tel:+9779802300007" style="color: white; text-decoration: underline;">+977-9802300007</a></p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Mobile Navigation Toggle
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+
+            menuToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+
+            // Close the menu when a link is clicked
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (navMenu.classList.contains('active')) {
+                        navMenu.classList.remove('active');
+                    }
+                });
+            });
+
+            // 2. Pricing Model Switcher Logic
+            const toggleLicense = document.getElementById('toggle-license');
+            const toggleSubscription = document.getElementById('toggle-subscription');
+            const licenseCard = document.querySelector('.license-model');
+            const subscriptionCard = document.querySelector('.subscription-model');
+
+            const switchPricing = (model) => {
+                if (model === 'license') {
+                    // Activate License
+                    toggleLicense.classList.add('active');
+                    toggleSubscription.classList.remove('active');
+                    licenseCard.classList.add('active-model');
+                    licenseCard.classList.remove('hidden-model');
+                    subscriptionCard.classList.remove('active-model');
+                    subscriptionCard.classList.add('hidden-model');
+                } else {
+                    // Activate Subscription
+                    toggleSubscription.classList.add('active');
+                    toggleLicense.classList.remove('active');
+                    subscriptionCard.classList.add('active-model');
+                    subscriptionCard.classList.remove('hidden-model');
+                    licenseCard.classList.remove('active-model');
+                    licenseCard.classList.add('hidden-model');
+                }
+            };
+
+            toggleLicense.addEventListener('click', () => switchPricing('license'));
+            toggleSubscription.addEventListener('click', () => switchPricing('subscription'));
+
+            // Ensure the default (License) is shown on load
+            switchPricing('license');
+
+
+            // 3. Smooth Scrolling (for all internal links)
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    document.querySelector(targetId).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+
+            // 4. Contact Form Submission (Basic Simulation)
+            const contactForm = document.getElementById('contact-form');
+            const formMessage = document.getElementById('form-message');
+            
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                // Simulate form submission success
+                formMessage.textContent = 'तपाईंको सोधपुछको लागि धन्यवाद! हामी छिट्टै सम्पर्कमा आउनेछौं।';
+                formMessage.style.color = '#34C759'; /* Success color */
+                formMessage.style.opacity = 1;
+                contactForm.reset();
+
+                // Clear message after 5 seconds
+                setTimeout(() => {
+                    formMessage.style.opacity = 0;
+                }, 5000);
+            });
+
+            // 5. Update Footer Year
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+        });
+    </script>
+</body>
+</html>

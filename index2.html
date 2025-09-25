@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paper Bank - Document Management Software</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f7;
+            color: #1d1d1f;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: #fff;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1d1d1f;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 30px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #1d1d1f;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #007aff;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 80px 20px;
+            background-color: #fff;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: #6e6e73;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #007aff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 18px;
+            transition: background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #005bb5;
+        }
+
+        .features, .dms-details, .video-section, .pricing, .contact {
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .features h2, .dms-details h2, .video-section h2, .pricing h2, .contact h2 {
+            font-size: 36px;
+            font-weight: 600;
+            margin-bottom: 40px;
+        }
+
+        .feature-grid, .pricing-grid, .dms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .feature-card, .pricing-card, .dms-card {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover, .pricing-card:hover, .dms-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card h3, .pricing-card h3, .dms-card h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .dms-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .pricing-card .price {
+            font-size: 28px;
+            font-weight: 700;
+            color: #007aff;
+            margin-bottom: 20px;
+        }
+
+        .video-section iframe {
+            width: 100%;
+            max-width: 800px;
+            height: 450px;
+            border-radius: 12px;
+            margin: 0 auto;
+            display: block;
+        }
+
+        .contact form {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .contact input, .contact textarea {
+            padding: 12px;
+            border: 1px solid #d2d2d7;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .contact button {
+            padding: 12px;
+            background-color: #007aff;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .contact button:hover {
+            background-color: #005bb5;
+        }
+
+        footer {
+            background-color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 14px;
+            color: #6e6e73;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            nav ul li {
+                margin-left: 0;
+            }
+
+            .video-section iframe {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .features h2, .dms-details h2, .video-section h2, .pricing h2, .contact h2 {
+                font-size: 28px;
+            }
+
+            .video-section iframe {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Paper Bank</div>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#dms-details">DMS Details</a></li>
+                    <li><a href="#video">Video</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="container">
+            <h1>Streamline Your Documents with Paper Bank</h1>
+            <p>Effortless document management and digitalization solutions for businesses of all sizes.</p>
+            <a href="#pricing" class="cta-button">Get Started</a>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="container">
+            <h2>Why Choose Paper Bank?</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>Document Management</h3>
+                    <p>Organize, store, and retrieve documents with ease using our intuitive platform.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Digitalization</h3>
+                    <p>Convert physical documents into digital formats for seamless access and sharing.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Secure Storage</h3>
+                    <p>Keep your documents safe with advanced encryption and secure cloud storage.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="dms-details" class="dms-details">
+        <div class="container">
+            <h2>Our Document Management System</h2>
+            <div class="dms-grid">
+                <div class="dms-card">
+                    <img src="https://via.placeholder.com/300x200?text=Document+Indexing" alt="Document Indexing">
+                    <h3>Advanced Indexing</h3>
+                    <p>Effortlessly categorize and tag documents with metadata for quick retrieval. Our system supports full-text search and customizable indexing fields to suit your business needs.</p>
+                </div>
+                <div class="dms-card">
+                    <img src="https://via.placeholder.com/300x200?text=Workflow+Automation" alt="Workflow Automation">
+                    <h3>Workflow Automation</h3>
+                    <p>Streamline document approvals and routing with automated workflows. Set up custom rules to ensure documents move seamlessly through your processes, reducing manual effort.</p>
+                </div>
+                <div class="dms-card">
+                    <img src="https://via.placeholder.com/300x200?text=Version+Control" alt="Version Control">
+                    <h3>Version Control</h3>
+                    <p>Maintain document integrity with robust version control. Track changes, revert to previous versions, and ensure compliance with a complete audit trail.</p>
+                </div>
+                <div class="dms-card">
+                    <img src="https://via.placeholder.com/300x200?text=Integration" alt="Integration">
+                    <h3>Seamless Integration</h3>
+                    <p>Integrate with your existing tools like CRMs, ERPs, and cloud storage platforms. Our APIs ensure Paper Bank fits perfectly into your tech stack.</p>
+                </div>
+                <div class="dms-card">
+                    <img src="https://via.placeholder.com/300x200?text=OCR+Technology" alt="OCR Technology">
+                    <h3>OCR Technology</h3>
+                    <p>Transform scanned documents into searchable, editable files with our advanced Optical Character Recognition (OCR) technology, supporting multiple languages.</p>
+                </div>
+                <div class="dms-card">
+                    <img src="https://via.placeholder.com/300x200?text=Access+Control" alt="Access Control">
+                    <h3>Role-Based Access</h3>
+                    <p>Control who sees what with granular, role-based permissions. Ensure sensitive documents are only accessible to authorized personnel.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="video" class="video-section">
+        <div class="container">
+            <h2>Discover Paper Bank</h2>
+            <p>Watch our video to learn how Paper Bank revolutionizes document management and digitalization for your business.</p>
+            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Paper Bank Overview" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </section>
+
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <h2>Pricing Plans</h2>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>One-Time Purchase</h3>
+                    <p class="price">$999</p>
+                    <p>Own the software outright with optional Annual Maintenance Contract (AMC) for updates and support.</p>
+                    <a href="#contact" class="cta-button">Contact Sales</a>
+                </div>
+                <div class="pricing-card">
+                    <h3>Monthly Subscription</h3>
+                    <p class="price">$49/month</p>
+                    <p>Flexible, pay-as-you-go plan with full access to all features and updates.</p>
+                    <a href="#contact" class="cta-button">Start Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Get in Touch</h2>
+            <form id="contact-form">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea placeholder="Your Message" rows="5" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Paper Bank. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Form submission handling
+        document.getElementById('contact-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            this.reset();
+        });
+    </script>
+</body>
+</html>

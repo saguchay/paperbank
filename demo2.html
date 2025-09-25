@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paper Bank - Document Management Solutions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Variables */
+        :root {
+            --primary-color: #007AFF;
+            --secondary-color: #5856D6;
+            --accent-color: #34C759;
+            --text-dark: #1D1D1F;
+            --text-light: #86868B;
+            --bg-light: #F5F5F7;
+            --bg-white: #FFFFFF;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --border-radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            color: var(--text-dark);
+            background-color: var(--bg-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        h2 {
+            font-size: 2rem;
+            font-weight: 600;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+        }
+
+        section {
+            padding: 5rem 1.5rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056CC;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(0, 122, 255, 0.1);
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mb-4 {
+            margin-bottom: 2rem;
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 1.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            text-decoration: none;
+        }
+
+        .logo i {
+            margin-right: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-dark);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding-top: 8rem;
+            padding-bottom: 5rem;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 3rem;
+        }
+
+        .hero-text {
+            flex: 1;
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        /* Features Section */
+        .features {
+            background-color: var(--bg-white);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title p {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background-color: var(--bg-white);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: rgba(0, 122, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            background-color: var(--bg-light);
+        }
+
+        .pricing-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 3rem;
+            background-color: white;
+            border-radius: 50px;
+            padding: 0.5rem;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: var(--shadow);
+        }
+
+        .tab-btn {
+            padding: 0.8rem 2rem;
+            border: none;
+            background: transparent;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--text-light);
+        }
+
+        .tab-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .pricing-card {
+            background-color: var(--bg-white);
+            border-radius: var(--border-radius);
+            padding: 2.5rem 2rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .pricing-card.featured {
+            border: 2px solid var(--primary-color);
+            transform: scale(1.05);
+        }
+
+        .pricing-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .price span {
+            font-size: 1rem;
+            color: var(--text-light);
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin: 2rem 0;
+        }
+
+        .pricing-features li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pricing-features i {
+            color: var(--accent-color);
+            margin-right: 0.5rem;
+        }
+
+        /* Digitalization Section */
+        .digitalization {
+            background-color: var(--bg-white);
+        }
+
+        .digitalization-content {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .digitalization-text {
+            flex: 1;
+        }
+
+        .digitalization-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .digitalization-image img {
+            max-width: 100%;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        /* Contact Section */
+        .contact {
+            background-color: var(--bg-light);
+        }
+
+        .contact-container {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .contact-form {
+            flex: 1;
+            background-color: var(--bg-white);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .contact-info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-info-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: rgba(0, 122, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--text-dark);
+            color: white;
+            padding: 3rem 1.5rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #86868B;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary-color);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #86868B;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+            
+            .hero-content, .digitalization-content {
+                flex-direction: column;
+            }
+            
+            .contact-container {
+                flex-direction: column;
+            }
+            
+            .pricing-card.featured {
+                transform: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links li {
+                margin: 0.5rem 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .pricing-tabs {
+                flex-direction: column;
+                border-radius: var(--border-radius);
+            }
+            
+            .tab-btn {
+                border-radius: var(--border-radius);
+                margin-bottom: 0.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            section {
+                padding: 3rem 1rem;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .features-grid, .pricing-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-file-contract"></i>
+                Paper Bank
+            </a>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#digitalization">Digitalization</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#" class="btn btn-primary">Get Started</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Streamline Your Document Management</h1>
+                    <p>Paper Bank offers cutting-edge document management software and digitalization services to help businesses organize, secure, and access their documents effortlessly.</p>
+                    <div class="hero-buttons">
+                        <a href="#pricing" class="btn btn-primary">View Plans</a>
+                        <a href="#contact" class="btn btn-secondary">Contact Us</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Document Management Dashboard">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Powerful Document Management Features</h2>
+                <p>Our software is designed to simplify your document workflow with intuitive features that save time and reduce errors.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-folder-open"></i>
+                    </div>
+                    <h3>Organized Storage</h3>
+                    <p>Categorize and store documents in a structured hierarchy with advanced search and filtering capabilities.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Secure Access</h3>
+                    <p>Role-based permissions ensure that only authorized personnel can access sensitive documents.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h3>Automated Workflows</h3>
+                    <p>Create custom approval processes and automate repetitive document tasks to improve efficiency.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>Advanced Search</h3>
+                    <p>Find any document in seconds with our powerful full-text search and metadata filtering.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Mobile Access</h3>
+                    <p>Access your documents from anywhere with our responsive web app and dedicated mobile applications.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Analytics & Reporting</h3>
+                    <p>Gain insights into document usage, workflow efficiency, and storage optimization with detailed reports.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <div class="section-title">
+                <h2>Flexible Pricing Plans</h2>
+                <p>Choose the plan that best fits your business needs. Both options include our powerful document management features.</p>
+            </div>
+            
+            <div class="pricing-tabs">
+                <button class="tab-btn active" data-tab="one-time">One-Time Purchase</button>
+                <button class="tab-btn" data-tab="subscription">Monthly Subscription</button>
+            </div>
+            
+            <div class="pricing-cards">
+                <div class="pricing-card">
+                    <h3>Basic</h3>
+                    <div class="price">$499<span>/one-time</span></div>
+                    <p>Perfect for small businesses with basic document management needs</p>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Up to 5 users</li>
+                        <li><i class="fas fa-check"></i> 50GB storage</li>
+                        <li><i class="fas fa-check"></i> Basic workflows</li>
+                        <li><i class="fas fa-check"></i> Email support</li>
+                        <li><i class="fas fa-times"></i> Advanced analytics</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Get Started</a>
+                </div>
+                
+                <div class="pricing-card featured">
+                    <h3>Professional</h3>
+                    <div class="price">$999<span>/one-time</span></div>
+                    <p>Ideal for growing businesses with advanced document requirements</p>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Up to 20 users</li>
+                        <li><i class="fas fa-check"></i> 200GB storage</li>
+                        <li><i class="fas fa-check"></i> Advanced workflows</li>
+                        <li><i class="fas fa-check"></i> Priority support</li>
+                        <li><i class="fas fa-check"></i> Basic analytics</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Get Started</a>
+                </div>
+                
+                <div class="pricing-card">
+                    <h3>Enterprise</h3>
+                    <div class="price">$1,999<span>/one-time</span></div>
+                    <p>For large organizations with complex document management needs</p>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Unlimited users</li>
+                        <li><i class="fas fa-check"></i> 1TB storage</li>
+                        <li><i class="fas fa-check"></i> Custom workflows</li>
+                        <li><i class="fas fa-check"></i> 24/7 support</li>
+                        <li><i class="fas fa-check"></i> Advanced analytics</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Get Started</a>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4">
+                <p><strong>AMC (Annual Maintenance Contract):</strong> Renewable at 20% of the software cost per year for updates and support.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Digitalization Section -->
+    <section class="digitalization" id="digitalization">
+        <div class="container">
+            <div class="digitalization-content">
+                <div class="digitalization-text">
+                    <h2>Document Digitalization Services</h2>
+                    <p>Transform your paper documents into searchable, secure digital files with our professional digitalization services.</p>
+                    <p>Our team uses state-of-the-art scanning technology and OCR (Optical Character Recognition) to convert your physical documents into high-quality digital formats.</p>
+                    <ul style="list-style-type: none; margin: 1.5rem 0;">
+                        <li><i class="fas fa-check" style="color: var(--accent-color); margin-right: 0.5rem;"></i> High-quality scanning with OCR technology</li>
+                        <li><i class="fas fa-check" style="color: var(--accent-color); margin-right: 0.5rem;"></i> Document categorization and indexing</li>
+                        <li><i class="fas fa-check" style="color: var(--accent-color); margin-right: 0.5rem;"></i> Secure data handling and destruction</li>
+                        <li><i class="fas fa-check" style="color: var(--accent-color); margin-right: 0.5rem;"></i> Integration with our document management system</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Request a Quote</a>
+                </div>
+                <div class="digitalization-image">
+                    <img src="https://images.unsplash.com/photo-1586282391129-76a746df25f9?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Document Scanning Process">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Get In Touch</h2>
+                <p>Contact us to learn more about our document management solutions or to request a demo.</p>
+            </div>
+            
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h4>Our Office</h4>
+                            <p>Kathmandu, Nepal</p>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>9802300007</p>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h4>Email</h4>
+                            <p>info@paperbank.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            <h4>Business Hours</h4>
+                            <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h3>Send Us a Message</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="company">Company</label>
+                            <input type="text" id="company" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="interest">I'm interested in</label>
+                            <select id="interest" class="form-control">
+                                <option value="">Select an option</option>
+                                <option value="one-time">One-Time Software Purchase</option>
+                                <option value="subscription">Monthly Subscription</option>
+                                <option value="digitalization">Document Digitalization</option>
+                                <option value="demo">Product Demo</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" class="form-control" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Paper Bank</h3>
+                <p>Streamlining document management for businesses of all sizes with innovative software solutions and digitalization services.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#digitalization">Digitalization</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Services</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Document Management Software</a></li>
+                    <li><a href="#">Document Digitalization</a></li>
+                    <li><a href="#">Workflow Automation</a></li>
+                    <li><a href="#">Cloud Storage</a></li>
+                    <li><a href="#">Technical Support</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Legal</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                    <li><a href="#">Data Processing Agreement</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 Paper Bank. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // Pricing Tabs
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const pricingCards = document.querySelectorAll('.pricing-card');
+        
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Remove active class from all buttons
+                tabBtns.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                // Update pricing based on selected tab
+                const tab = this.getAttribute('data-tab');
+                updatePricing(tab);
+            });
+        });
+        
+        function updatePricing(tab) {
+            if (tab === 'one-time') {
+                document.querySelectorAll('.price').forEach((price, index) => {
+                    const prices = ['$499', '$999', '$1,999'];
+                    price.innerHTML = `${prices[index]}<span>/one-time</span>`;
+                });
+            } else if (tab === 'subscription') {
+                document.querySelectorAll('.price').forEach((price, index) => {
+                    const prices = ['$49', '$99', '$199'];
+                    price.innerHTML = `${prices[index]}<span>/month</span>`;
+                });
+            }
+        }
+
+        // Form Submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            this.reset();
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    document.querySelector('.nav-links').classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
